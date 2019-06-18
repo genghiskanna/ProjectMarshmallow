@@ -1,0 +1,33 @@
+/* Custom Stylesheet */
+/**
+ * Use this file to override Materialize files so you can update
+ * the core Materialize files in the future
+ *
+ * Made By MaterializeCSS.com
+ */
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.fullscreen-img{
+	background: url(../img/bg.jpg) no-repeat;
+	height: 70vh;
+    background-attachment: fixed;
+	width: 100vw;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.product {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+
+.product-right {
+    margin-right: 20px; 
+    float: right;
+}

@@ -1,0 +1,187 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col l12">
+                <a class="btn-floating btn-large waves-effect waves-light green right tooltipped" data-position="left" data-delay="5" data-tooltip="Add a new Marshmallow" href="#addModal"><i
+                        class="material-icons">add</i></a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col l12">
+                <ul class="collapsible" data-collapsible="accordion">
+
+                    {% for product in data %}
+                    <li>
+                    <!-- collapsible-header here -->
+                        <div class="collapsible-header">
+                        <!-- add button here -->
+                            <i class="material-icons">add</i><span class="product-title">{{ product.product_name }}</span>
+                              <a class="btn right waves-effect waves-green green" href="/engine?product_name={{ product.product_name }}">Go to Engine</a>
+                        </div>
+
+                        <div class="collapsible-body">
+                            <a class="btn waves-effect waves-light red right" onclick="deleteProduct(this, '{{ product.product_name }}')">Delete !</a>
+                            <!--
+                            <p class="product-rating">Rating: <i class="product-stars">
+                                {% if product.rating == 0.0 %}
+                                    <i class="red-text">Please run the engine at least once or enter a recognized product name</i>
+                                {% elif product.rating < 1.0 %}
+                                    <i class="tiny material-icons">star</i>
+                                {% elif product.rating < 2.0 %}
+                                    <i class="tiny material-icons">star</i>
+                                {% elif product.rating < 3.0 %}
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                {% elif product.rating < 4.0 %}
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                {% elif product.rating < 4.0 %}
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                    <i class="tiny material-icons">star</i>
+                                {% endif %}
+
+                            </i>
+                            {% if product.rating != 0.0 %}
+                                {{  product.rating }}
+                            {% endif %}
+                            </p>
+                            <p class="product-sentiment"> Sentiment:
+                            {% if product.rating == 0.0 %}
+                                <i class="red-text">Please run the engine at least once or enter a recognized product name</i>
+                            {% else %}
+                                <span class="positive">
+                            <i class="material-icons tiny">thumb_up</i>
+                            {{  product.positive_score }}</span>
+                                <span class="negative">
+                            <i class="material-icons tiny">thumb_down</i>
+                                {{ product.negative_score }}</span>
+                            {% endif %}
+
+                            </p>
+
+
+-->
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Add a new product -->
+    <!-- Modal Structure -->
+  <div id="addModal" class="modal bottom-sheet">
+    <div class="modal-content">
+    <div class="row">
+        <div class="col l6 m6 s6">
+            <h4>Add a new Marshmallow</h4>
+        </div>
+        <div class="col l6 m6 s6">
+            <i class="modal-action modal-close btn-floating btn waves-effect waves-light red right tooltipped" data-position="left" data-delay="5" data-tooltip="Close" ><i class="material-icons">close</i></i>
+        </div>
+    </div>
+        <form action="/add_product/" id="new_product_form" method="post">
+            {% csrf_token %}
+            <div class="row">
+                <div class="input-field col l4">
+                    <label for="product_name">Product Name</label>
+                    <input type="text" id="product_name" name="product_name" class="small_input">
+                </div>
+                <div class="input-field col l2">
+                    <select>
+                      <option value="" disabled selected>Choose Category:</option>
+                      <option value="gadgets">Gadgets</option>
+                      <option value="cinema">Cinema</option>
+                      <option value="hotels">Hotels</option>
+                    </select>
+                    <label>Category:</label>
+                </div>
+                <!-- Future Feature
+                    <div class="input-field col l3">
+                        <input type="checkbox" class="filled-in tooltipped" id="private_check">
+                        <label for="private_check">Don't Share it (Make it Private!)</label>
+                    </div>
+                    <div class="input-field col l3">
+                        <input type="checkbox" class="filled-in" id="manufacturer_check" checked="checked" />
+                        <label for="manufacturer_check">I'm the Manufacturer</label>
+                    </div>
+                -->
+            </div>
+            <div class="row">
+                <div class="col l12">
+                    <div id="feature_wrapper" class="input-field">
+                        <label for="product_feature0">Product Feature</label>
+                        <input type="text" id="product_feature0" name="product_feature0" class="small_input">
+                    </div>
+                    <i class="btn-floating btn waves-effect waves-light green tooltipped"
+                       data-position="right" data-delay="5" data-tooltip="Add a new Product Feature"
+                       id="add_product"><i class="material-icons">add</i></i>
+                </div>
+            </div>
+            <input type="submit" class="modal-action modal-close waves-effect waves-green btn-flat green white-text right bottom-margin-10" value="Start Cooking Marshmallow">
+        </form>
+
+    </div>
+
+
+  </div>
+
+    <script type="text/javascript">
+        if(document.getElementsByClassName("collapsible-header") == undefined){
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var max_fields      = 2; //maximum input boxes allowed
+            var wrapper         = $("#feature_wrapper"); //Fields wrapper
+            var add_button      = $("#add_product"); //Add button ID
+
+            var x = 0; //initial text box count
+            $(add_button).click(function(e){ //on add input button click
+                e.preventDefault();
+                if(x < max_fields){ //max input box allowed
+                    x++; //text box increment
+                    $(wrapper).append('<span><input type="text" class="small_input extra_feature" id="product_feature'+x+'" '+' name="product_feature'+x+'"><a href="#" class="btn-floating btn small waves-effect waves-light red remove_field"><i class="material-icons">delete</i></a></span>'); //add input box
+                }
+            });
+
+            $(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+                e.preventDefault();
+                $(this).parent('span').remove();
+                x--;
+            })
+        });
+    </script>
+
+    <script type="text/javascript">
+        function deleteProduct(obj, product_name) {
+            obj.parentNode.parentNode.remove();
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                }
+            };
+            xhttp.open("GET", "/delete/?product_name=" + product_name, true);
+            xhttp.send();
+        }
+    </script>
+
+{% endblock %}

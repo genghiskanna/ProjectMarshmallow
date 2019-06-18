@@ -1,0 +1,87 @@
+
+.margin-top-10{
+    margin-top: 10px;
+}
+
+.icon-block {
+  padding: 0 15px;
+}
+
+.fullscreen-img{
+	background: url(../img/bg.jpg) no-repeat;
+	height: 70vh;
+              background-attachment: fixed;
+	width: 100vw;
+}
+
+.icon-block .material-icons {
+	font-size: inherit;
+}
+.product {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+
+.product-right {
+    margin-right: 20px;
+    float: right;
+}
+
+/*  navbar */
+.user-nav{
+    margin-left: 30px;
+}
+
+/*  Login */
+input{
+    width: 300px;
+    font-size: 18px;
+}
+input:focus{
+    font-size: 28px;
+    align-items: center;
+}
+
+/*  Dashboard   */
+.collapsible-header{
+    padding:10px 10px 10px 10px !important;
+}
+
+.collapsible-body{
+    padding:10px 10px 10px 10px !important;
+}
+
+.btn-floating{
+    margin:10px 10px 10px 10px;
+}
+
+#engine_form{
+    margin-top: 50px;
+}
+
+.small_input{
+    width: 200px !important;
+    display: inline !important;
+}
+.page-wrap{
+    min-height: 80vh;
+}
+
+.bottom-sheet{
+    max-height: 70% !important;
+}
+
+
+
+
+/*
+
+Quickies
+
+*/
+
+.bottom-margin-10{
+    margin-bottom: 10px;
+}

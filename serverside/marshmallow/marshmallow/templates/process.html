@@ -1,0 +1,14 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Process
+{% endblock %}
+
+
+{% block content %}
+     <canvas id="sentiment-chart"></canvas>
+    <script type="text/javascript">
+        flag = true;
+        sentiData = {{ sentiment_data }};
+    </script>
+{% endblock %}

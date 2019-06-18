@@ -1,0 +1,133 @@
+{% extends 'layout.html' %} {% block title %} Marshmallow Engine {% endblock title %} {% block content %}
+
+<div class="container">
+    <div class="row">
+        <!--    User input      -->
+        <div class="container">
+            <form method="post" id="engine_form" action="/process/">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col l6 input-field">
+                        <label for="product_name">Product Name:</label>
+                        <input type="text" disabled id="product_name" value="{{ product_name }}">
+                    </div>
+                    <!--
+                        <div class="col l6 input-field">
+                              <div class="input-field col s12">
+                                <select>
+                                  <option value="" disabled selected>Choose your Accuracy</option>
+                                  <option value="least">Least</option>
+                                  <option value="medium">Medium</option>
+                                  <option value="high">High</option>
+                                </select>
+                                <label>Select Accuracy: </label>
+                              </div>
+                        </div>
+                        -->
+                </div>
+                <div class="row">
+                    <div class="col l3 input-field">
+                        <label for="product_feature">Product Feature:</label>
+                    </div>
+                    {% for product_feature in features %}
+                    <div class="col l3">
+                        <input type="text" id="product_feature" disabled value="{{ product_feature.name }}">
+                    </div>
+                    {% endfor %}
+                </div>
+                <!--
+                <div class="row">
+                    <div class="col l6">
+                        <p class="product-rating">Rating: <i class="product-stars">
+                                {% if product.rating == 0.0 %}
+                                    <i class="red-text">Please run the engine at least once or enter a recognized product name</i>                            {% elif product.rating
+                            < 1.0 %} <i class="tiny material-icons">star</i>
+                                {% elif product.rating
+                                < 2.0 %} <i class="tiny material-icons">star</i>
+                                    {% elif product.rating
+                                    < 3.0 %} <i class="tiny material-icons">star</i>
+                                        <i class="tiny material-icons">star</i> {% elif product.rating
+                                        < 4.0 %} <i class="tiny material-icons">star</i>
+                                            <i class="tiny material-icons">star</i>
+                                            <i class="tiny material-icons">star</i> {% elif product.rating
+                                            < 4.0 %} <i class="tiny material-icons">star</i>
+                                                <i class="tiny material-icons">star</i>
+                                                <i class="tiny material-icons">star</i>
+                                                <i class="tiny material-icons">star</i> {% endif %}
+
+                                                </i>
+                                                {% if product.rating != 0.0 %} {{ product.rating }} {% endif %}
+                        </p>
+                    </div>
+                    <div class="col l6">
+                        <p class="product-sentiment"> Sentiment: {% if product.rating == 0.0 %}
+                            <i class="red-text">Please run the engine at least once or enter a recognized product name</i>                            {% else %}
+                            <span class="positive">
+                            <i class="material-icons tiny">thumb_up</i>
+                            {{  product.positive_score }}</span>
+                            <span class="negative">
+                            <i class="material-icons tiny">thumb_down</i>
+                                {{ product.negative_score }}</span> {% endif %}
+
+                        </p>
+                    </div>
+                </div>
+                <div class="row">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h4>Top Positive Reviews</h4>
+                        </li>
+                        {% for positive_reviews in features %} {% for positive_review in positive_reviews.top_positive_reviews %}
+                        <li class="collection-item">
+                            <div>{{ positive_review }} - {{ positive_reviews.name }}</div>
+                        </li>
+                        {% endfor %} {% endfor %}
+                    </ul>
+                </div>
+                <div class="row">
+                    <ul class="collection with-header">
+                        <li class="collection-header">
+                            <h4>Top Negative Reviews</h4>
+                        </li>
+                        {% for negative_reviews in features %} {% for negative_review in negative_reviews.top_negative_reviews %}
+                        <li class="collection-item">
+                            <div>{{ negative_review }} - {{ negative_reviews.name }}</div>
+                        </li>
+                        {% endfor %} {% endfor %}
+                    </ul>
+                </div>
+                -->
+                <div class="row">
+                    <div class="col l6">
+                        <button class="btn waves-effect waves-light margin-top-10" type="submit" name="action">Cook<i class="material-icons right">loop</i></button>
+                    </div>
+                    <!--
+                    <div class="col l6">
+                        <a class="btn waves-effect waves-light margin-top-10" href="/custom_survey?product_name={{ product_name }}">Create a Custom Survey</a>
+                    </div>
+-->
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+<!--
+    <script type="text/javascript">
+    function getChart(){
+
+        var xhttpf = XMLHttpRequest();
+
+        xhttpf.onreadystatechange = function(){
+            if (this.readyState == 4 && this.status == 200) {
+                console.log(this.responseText);
+            }
+        };
+        xhttpf.open("POST", "/process/", true);
+        xhttpf.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhttpf.send("product_name="+ $('#product_name').val() +"&product_feature="+$('#product_feature').val() +"&tweet_limit="+ $('#tweet_limit').val());
+    }
+    </script>
+-->
+{% endblock %}
